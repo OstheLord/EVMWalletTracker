@@ -1,0 +1,4 @@
+Flask==2.0.1
+SQLAlchemy==1.4.22
+web3==5.24.0
+python-telegram-bot==13.7
