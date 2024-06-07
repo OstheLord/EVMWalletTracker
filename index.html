@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVM Wallet Tracker Interface</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; }
+        input, button { padding: 10px; margin-top: 5px; }
+        button { background-color: #4CAF50; color: white; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        .section { margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <h1>EVM Wallet Tracker Interface</h1>
+
+    <div class="container">
+        <div class="section">
+            <h2>Connect Wallet</h2>
+            <form id="connectWalletForm">
+                <label for="walletAddress">Wallet Address:</label>
+                <input type="text" id="walletAddress" name="walletAddress" required>
+                <button type="submit">Connect</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Recent Transactions</h2>
+            <div id="transactions">
+                <!-- Transactions will be displayed here -->
+                <p>No transactions found. Please connect your wallet.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Configure Telegram Notifications</h2>
+            <form id="telegramConfigForm">
+                <label for="botToken">Telegram Bot Token:</label>
+                <input type="text" id="botToken" name="botSysToken" required>
+                
+                <label for="chatId">Telegram Chat ID:</label>
+                <input type="text" id="chatId" name="chatId" required>
+                
+                <button type="submit">Save Configuration</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code for handling form submissions, loading transactions,
+        // and updating Telegram configuration will go here.
+
+        // Example: Handle Connect Wallet Form Submission
+        document.getElementById('connectWalletForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var walletAddress = document.getElementById('walletAddress').value;
+            // API call for connecting wallet and fetching transactions could go here
+            console.log('Wallet Address:', walletAddress);
+        });
+
+        // Placeholder for other functionalities
+
+    </script>
+</body>
+</html>
