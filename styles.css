@@ -4,73 +4,83 @@ body, h1, h2, h3, p, ul, li {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  color: #333;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  line-height: 1.65;
+  color: #424242;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
 }
 .main-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 25px;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-radius: 8px; /* Added rounded corners */
 }
 .header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 .header h1 {
-  font-size: 24px;
+  font-size: 28px;
   color: #333;
+  margin-bottom: 10px; /* Added space for subheading/extra info */
 }
 .transaction-display {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .transaction-item {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  border-bottom: 2px solid #eee; /* Lighter and thicker line for separation */
+  padding: 15px 0;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 .transaction-item:last-child {
   border-bottom: none;
 }
+.transaction-item:hover {
+  background-color: #f5f5f5; /* Subtle hover effect to indicate interactivity */
+}
 .transaction-item .title {
-  font-weight: bold;
+  font-weight: 600; /* Bold, but not too bold */
   color: #555;
 }
 .transaction-item .amount {
   float: right;
   color: #28a745;
+  font-weight: 500; /* Slightly bolder for emphasis */
 }
 .input-section {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .input-field {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Subtle inner shadow for depth */
 }
 .submit-btn {
   display: block;
   width: 100%;
   background-color: #007bff;
   color: #fff;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth color change and slight lift */
 }
 .submit-btn:hover {
   background-color: #0056b3;
+  transform: translateY(-2px); /* Slight raise effect on hover */
 }
 @media (max-width: 768px) {
   .header h1 {
-    font-size: 20px;
+    font-size: 22px;
   }
   .main-container {
-    padding: 10px;
+    padding: 15px;
   }
 }
