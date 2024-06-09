@@ -13,10 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
   async function fetchWalletTransactions(walletAddress) {
     try {
       const response = await axios.get(`${process.env.BACKEND_URL}/transactions/${walletAddress}`);
-      transactionsDisplayElement.innerHTML = JSON.stringify(response.data, null, 2);
+      if (response.status === 200) {
+        transactionsDisplayElement.innerHTML = JSON.stringify(response.data, null, 2);
+      } else {
+        console.error(`Error fetching wallet transactions: ${response.status}`);
+        transactionsDisplayElement.innerHTML = `Error: Unable to fetch transactions for address ${walletAddress}`;
+      }
     } catch (error) {
       console.error('Error fetching wallet transactions', error);
-      transactionsDisplayElement.innerHTML = 'Failed to load transactions';
+      transactionsDisplayElement.innerHTML = `Failed to load transactions due to an error: ${error.message}`;
     }
   }
 
@@ -27,17 +32,32 @@ document.addEventListener('DOMContentLoaded', function() {
         telegramBotToken,
         telegramChatID
       });
-      console.log('Wallet configuration updated successfully', response.data);
+
+      if (response.status === 200) {
+        console.log('Wallet configuration updated successfully', response.data);
+      } else {
+        console.error(`Error updating wallet configuration: ${response.status}`);
+        alert(`Configuration update failed: ${response.statusText}`);
+      }
     } catch (error) {
       console.error('Error updating wallet configuration', error);
+      alert(`Configuration update failed due to an error: ${error.message}`);
     }
   }
 
   fetchTransactionsButton.addEventListener('click', function() {
-    fetchWalletTransactions(walletAddressInput.value);
+    if (walletAddressInput.value === '') {
+      alert('Please enter a wallet address.');
+      return;
+    }
+    fetchWalletNotifications(walletAddressInput.value);
   });
 
   updateConfigurationButton.addEventListener('click', function() {
+    if (walletAddressInput.value === '' || telegramBotTokenInput.value === '' || telegramChatIdInput.value === '') {
+      alert('Please ensure all fields are filled out.');
+      return;
+    }
     updateWalletConfiguration(walletAddressInput.value, telegramBotTokenInput.value, telegramChatIdInput.value);
   });
 });
