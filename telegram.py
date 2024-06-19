@@ -2,41 +2,49 @@ import os
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-TELEGRAM_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
-bot = telegram.Bot(token=TELEGRAM_TOKEN)
+telegram_bot = telegram.Bot(token=TELEGRAM_BOT_TOKEN)
 
-def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to EVMWalletTracker notifications!")
+def greet_user(update, context):
+    welcome_message = "Welcome to EVMWalletTracker notifications!"
+    context.bot.send_message(chat_id=update.effective_chat.id, text=welcome_message)
 
-def help_command(update, context):
-    help_text = "This bot will send you notifications for your EVM Wallet.\nCommands:\n/start - Start the bot\n/help - Get help info"
-    context.bot.send_message(chat_id=update.effective_chat.id, text=help_text)
+def display_help(update, context):
+    help_message = (
+        "This bot will send you notifications for your EVM Wallet.\n"
+        "Commands:\n"
+        "/start - Start the bot\n"
+        "/help - Get help info"
+    )
+    context.bot.send_message(chat_id=update.effective_chat.id, text=help_message)
 
-def send_notification(chat_id, message):
-    bot.send_message(chat_id=chat_id, text=message)
+def forward_message_to_user(chat_id, message):
+    telegram_bot.send_message(chat_id=chat_id, text=message)
 
-def echo(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+def echo_user_message(update, context):
+    received_text = update.message.text
+    context.bot.send_message(chat_id=update.effective_chat.id, text=received_text)
 
-def error(update, context):
-    print(f"Update {update} caused error {context.error}")
+def handle_error(update, context):
+    error_message = f"Update {update} caused error {context.error}"
+    print(error_message)
 
-def main():
-    updater = Updater(token=TELEGRAM_TOKEN, use_context=True)
+def run_bot():
+    updater = Updater(token=TELEGRAM_BOT_TOKEN, use_context=True)
 
-    dp = updater.dispatcher
+    dispatcher = updater.dispatcher
 
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("start", greet_user))
+    dispatcher.add_handler(CommandHandler("help", display_help))
 
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo_user_messages))
 
-    dp.add_error_handler(error)
+    dispatcher.add_error_handler(handle_error)
 
     updater.start_polling()
 
     updater.idle()
 
 if __name__ == '__main__':
-    main()
+    run_bot()
